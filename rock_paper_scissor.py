@@ -5,12 +5,13 @@ from random import randint
 
 
 
+
 # Main Window
 
 root = Tk()
 root.title('Rock Paper Scissor')
 root.configure(background = '#222560')
-global sysChoice
+global sysChoice, scorep, scores
 
 
 
@@ -58,24 +59,42 @@ system_score.grid(row = 1, column = 3)
 
 def updatePlayerScore(flagp = 0):
     
-    score = int(player_score['text'])
+    scorep = int(player_score['text'])
     if(flagp):
-        score = 0
+        scorep = 0
         
     else:
-        score += 1
-    player_score['text'] = str(score)
+        scorep += 1
+
+    #end call
+    if(scorep==5):
+        updateMessage("You won the Game!")
+        #root.after(ms = 2000)
+        scorep = 0
+        updateSystemScore(1)   
+    
+    player_score['text'] = str(scorep)
 
         # System Score Update
 
 def updateSystemScore(flags = 0):
     
-    score = int(system_score['text'])
+    scores = int(system_score['text'])
     if(flags):
-        score = 0
+        scores = 0
     else:
-        score += 1
-    system_score['text'] = str(score)
+        scores += 1
+    
+    #end call
+    if(scores==5):
+        updateMessage("System won the Game!")
+        #root.after(ms = 2000)
+        scores = 0
+        updatePlayerScore(1)
+
+           
+         
+    system_score['text'] = str(scores)
 
 
 
