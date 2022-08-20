@@ -58,7 +58,7 @@ system_score.grid(row = 1, column = 3)
         # Player Score Update
 
 def updatePlayerScore(flagp = 0):
-    
+    global scorep
     scorep = int(player_score['text'])
     if(flagp):
         scorep = 0
@@ -68,7 +68,7 @@ def updatePlayerScore(flagp = 0):
 
     #end call
     if(scorep==5):
-        updateMessage("You won the Game!")
+        updateMessage("You won the Game! 5-"+ str(scores))
         #root.after(ms = 2000)
         scorep = 0
         updateSystemScore(1)   
@@ -78,7 +78,8 @@ def updatePlayerScore(flagp = 0):
         # System Score Update
 
 def updateSystemScore(flags = 0):
-    
+
+    global scores
     scores = int(system_score['text'])
     if(flags):
         scores = 0
@@ -87,7 +88,7 @@ def updateSystemScore(flags = 0):
     
     #end call
     if(scores==5):
-        updateMessage("System won the Game!")
+        updateMessage("System won the Game! 5-" + str(scorep))
         #root.after(ms = 2000)
         scores = 0
         updatePlayerScore(1)
