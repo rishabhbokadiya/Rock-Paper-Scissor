@@ -10,6 +10,7 @@ from random import randint
 root = Tk()
 root.title('Rock Paper Scissor')
 root.configure(background = '#222560')
+global sysChoice
 
 
 
@@ -55,16 +56,25 @@ system_score.grid(row = 1, column = 3)
 
         # Player Score Update
 
-def updatePlayerScore():
+def updatePlayerScore(flagp = 0):
+    
     score = int(player_score['text'])
-    score += 1
+    if(flagp):
+        score = 0
+        
+    else:
+        score += 1
     player_score['text'] = str(score)
 
         # System Score Update
 
-def updateSystemScore():
+def updateSystemScore(flags = 0):
+    
     score = int(system_score['text'])
-    score += 1
+    if(flags):
+        score = 0
+    else:
+        score += 1
     system_score['text'] = str(score)
 
 
@@ -93,7 +103,7 @@ def updateMessage(x):
 
 # Change Choice
 
-choices = ["rock", "paper", "scissor"]
+choices = ["rock", "paper", "scissor", "reset_score"]
 def changeChoice(x):
 
 # For Player
@@ -101,21 +111,23 @@ def changeChoice(x):
         player_label.configure(image = rock_image)
     elif(x == 'paper'):
         player_label.configure(image = paper_image)
-    else:
+    elif(x == 'scissor'):
         player_label.configure(image = scissor_image)
+    else:
+        checkWinner('rst', 'rst', 1)   
 
 # For System
+    if(x != 'reset_score'):
+        sysChoice = choices[randint(0,2)]
 
-    sysChoice = choices[randint(0,2)]
+        if(sysChoice == 'rock'):
+            system_label.configure(image = rock_image)
+        elif(sysChoice == 'paper'):
+            system_label.configure(image = paper_image)
+        else:
+            system_label.configure(image = scissor_image)
 
-    if(sysChoice == 'rock'):
-        system_label.configure(image = rock_image)
-    elif(sysChoice == 'paper'):
-        system_label.configure(image = paper_image)
-    else:
-        system_label.configure(image = scissor_image)
-
-    checkWinner(x, sysChoice)
+        checkWinner(x, sysChoice)
 
 
 
@@ -127,9 +139,11 @@ def changeChoice(x):
 rock_btn = Button(root, text= 'ROCK', command = lambda : changeChoice('rock'), width= 20, height=2, bg= '#ff1616', fg= 'white')
 paper_btn = Button(root, text= 'PAPER', command = lambda : changeChoice('paper'), width= 20, height=2, bg= 'brown', fg= 'white')
 scissor_btn = Button(root, text= 'SCISSOR', command = lambda : changeChoice('scissor'), width= 20, height=2, bg= 'green', fg= 'white')
+reset_btn = Button(root, text= 'RESET', command = lambda : changeChoice('reset_score'), width= 20, height=2, bg= 'green', fg= 'white')
 rock_btn.grid(row = 2, column = 1)
 paper_btn.grid(row = 2, column = 2)
 scissor_btn.grid(row = 2, column = 3)
+reset_btn.grid(row=2, column=4)
 
 
 
@@ -138,7 +152,15 @@ scissor_btn.grid(row = 2, column = 3)
 
 # Check Winner
 
-def checkWinner(player, system):
+def checkWinner(player, system, reset_flag = 0):
+    if(reset_flag):
+        updatePlayerScore(1)
+        updateSystemScore(1)
+        updateMessage("Game Reset Successfully")
+
+    if(player == 'rst'):
+        return    
+        
     if(player == system):
         updateMessage("Its a tie !!")
     elif(player == 'rock'):
