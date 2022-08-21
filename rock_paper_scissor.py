@@ -159,7 +159,7 @@ def changeChoice(x):
 rock_btn = Button(root, text= 'ROCK', command = lambda : changeChoice('rock'), width= 20, height=2, bg= '#ff1616', fg= 'white')
 paper_btn = Button(root, text= 'PAPER', command = lambda : changeChoice('paper'), width= 20, height=2, bg= 'brown', fg= 'white')
 scissor_btn = Button(root, text= 'SCISSOR', command = lambda : changeChoice('scissor'), width= 20, height=2, bg= 'green', fg= 'white')
-reset_btn = Button(root, text= 'RESET', command = lambda : changeChoice('reset_score'), width= 20, height=2, bg= 'green', fg= 'white')
+reset_btn = Button(root, text= 'RESET', command = lambda : changeChoice('reset_score'), width= 20, height=2, bg= 'red', fg= 'white')
 rock_btn.grid(row = 2, column = 1)
 paper_btn.grid(row = 2, column = 2)
 scissor_btn.grid(row = 2, column = 3)
